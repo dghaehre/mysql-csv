@@ -148,8 +148,6 @@ fn write_file(data: CsvData) -> Result<(), Box<Error>> {
     wtr.write_record(&data.header)?;
 
     for line in &data.rows {
-        // TODO: Match header!
-
         let vec: Vec<String> = data.header
                                 .iter()
                                 .map(|head| {
@@ -159,40 +157,8 @@ fn write_file(data: CsvData) -> Result<(), Box<Error>> {
                                     }
                                 })
                                 .collect();
-
-        //  let vec: Vec<&String> = line.data
-        //                         .iter()
-        //                         .map(|(key, value)| {
-        //                             println!("{:?} - {:?}", &key, &value);
-        //                             value
-                                // })
-                                // .collect();
-
-        // let vec: Vec<String> = line.data
-        //                     .iter()
-        //                     .map(|(key, value)| {
-        //                         let exist = &data.header
-        //                                 .iter()
-        //                                 .filter(|head| head == &key)
-        //                                 .count();
-
-        //                         if exist.count_ones() > 0 {
-        //                             value.clone()
-        //                         } else {
-        //                             default_no.clone()
-        //                         }
-        //                     })
-        //                     .filter(|value| value != &default_no)
-        //                     .collect();
-
-        // println!("{:?}", &vec);
         wtr.write_record(vec)?;
     }
-    // PRINT HEADER FOR DEBUG
-    for head in &data.header {
-        println!("{:?}", head);
-    }
-
     wtr.flush()?;
     Ok(())
 } 
@@ -213,8 +179,8 @@ pub fn run(args: Arguments) -> Result<(), Box<Error>> {
     println!("Lines in document {:?}", &lines_length);
     println!("Unique Id's in document {:?}", &rows_length);
 
+    for head in &header {
+        println!("{:?}", head);
+    }
     write_file( CsvData { filename: String::from(args.output), header: header, rows: rows })
-
 }
-
-    

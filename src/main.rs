@@ -20,9 +20,4 @@ fn main() {
             process::exit(0);
         }
     } 
-
-    // if let Err(e) = lib::run(arguments) {
-    //     println!("{} error: {} ", program, e);
-    //     process::exit(0);
-    // }
 }
